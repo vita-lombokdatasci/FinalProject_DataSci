@@ -97,7 +97,7 @@ def create_vectorstore(docs: List[Document], google_api_key: str):
     os.environ["GOOGLE_API_KEY"] = google_api_key
     
     # Menggunakan model embedding Google
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
     
     # Chunking
     splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=150)
@@ -123,7 +123,7 @@ def wants_images(query: str) -> bool:
     return any(k in q for k in IMAGE_KEYWORDS)
 
 # ---- Streamlit UI ----
-st.set_page_config(page_title="Luna — Sky Villa Assistant", page_icon="🌙", layout="wide")
+st.set_page_config(page_title="Luna — Sky Villa Assistant", layout="wide")
 
 # Custom CSS for better chat look
 st.markdown("""
@@ -134,8 +134,8 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.title("🌙 Luna — Sky Villa Assistant")
-st.markdown("Marketing Automation Powered by **Google Gemini**")
+st.title("Luna — Sky Villa Assistant")
+st.markdown("**Marketing Automation**")
 
 # sidebar: keys & index controls
 st.sidebar.header("Settings")
@@ -144,7 +144,7 @@ use_index = st.sidebar.checkbox("Update Index dari GitHub", value=False)
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("**WhatsApp Booking**")
-st.sidebar.markdown("[Chat via WhatsApp](https://wa.me/6281803642992)")
+st.sidebar.markdown("[Chat via WhatsApp](https://wa.me/6285253628371)")
 
 # Logic Building Index
 if st.sidebar.button("Build / Rebuild Index"):
@@ -180,7 +180,7 @@ vect = None
 if "vectorstore_path" in st.session_state and google_key:
     try:
         os.environ["GOOGLE_API_KEY"] = google_key
-        embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+        embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
         # allow_dangerous_deserialization=True diperlukan untuk local load di versi baru langchain
         vect = FAISS.load_local(st.session_state["vectorstore_path"], embeddings, allow_dangerous_deserialization=True)
     except Exception as e:
@@ -243,7 +243,7 @@ if prompt := st.chat_input("Ketik pertanyaan anda (misal: 'Apa fasilitas unggula
                 with st.spinner("Luna sedang membaca dokumen..."):
                     # Konfigurasi Google Gemini LLM
                     llm = ChatGoogleGenerativeAI(
-                        model="gemini-1.5-flash", # Model cepat & murah
+                        model="gemini-2.0-flash", 
                         temperature=0.3,
                         google_api_key=google_key,
                         convert_system_message_to_human=True 

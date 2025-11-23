@@ -1,9 +1,3 @@
-"""
-Untuk jalankan,
-
-streamlit run app4.py
-"""
-
 import os
 
 import fitz

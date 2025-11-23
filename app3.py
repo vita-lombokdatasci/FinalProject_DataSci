@@ -1,9 +1,3 @@
-"""
-Untuk jalankan,
-
-streamlit run app3.py
-"""
-
 import os
 
 import streamlit as st
