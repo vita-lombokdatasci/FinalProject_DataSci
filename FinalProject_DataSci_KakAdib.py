@@ -125,7 +125,7 @@ def wants_images(query: str) -> bool:
 # ---- Streamlit UI ----
 st.set_page_config(page_title="Luna — Sky Villa Assistant", layout="wide")
 
-# Custom CSS for better chat look
+# CSS
 st.markdown("""
 <style>
     .stTextInput > div > div > input {
@@ -134,10 +134,18 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# Sky Villa logo
+logo_url = "https://raw.githubusercontent.com/vita-lombokdatasci/FinalProject_DataSci/main/logo_SkyVilla_tetebatu.jpg"
+try:
+    cols = st.columns([1, 4, 1])
+    with cols[0]:
+        st.image(logo_url, width=150)
+except Exception:
+    st.warning("Gagal memuat logo Sky Villa dari GitHub.")
+
 st.title("Luna — Sky Villa Assistant")
 st.markdown("**Marketing Automation**")
 
-# sidebar: keys & index controls
 st.sidebar.header("Settings")
 google_key = st.sidebar.text_input("Google API Key", type="password", help="Dapatkan API Key di aistudio.google.com")
 use_index = st.sidebar.checkbox("Update Index dari GitHub", value=False)
